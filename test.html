@@ -1,108 +1,134 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Contact Section</title>
+    <title>Your Webpage Title</title>
+    <link href="css/style.css" rel="stylesheet" />
     <style>
-      /* Add your custom styles here */
-      body {
-        font-family: Arial, sans-serif;
-        margin: 20px;
-      }
-
-      .contact-form {
-        max-width: 400px;
-        margin: auto;
-      }
-
-      .form-group {
-        margin-bottom: 15px;
-      }
-
-      label {
-        display: block;
-        margin-bottom: 5px;
-      }
-
-      input,
-      textarea {
-        width: 100%;
-        padding: 8px;
-        box-sizing: border-box;
-      }
-
-      button {
-        background-color: #4caf50;
-        color: white;
-        padding: 10px 15px;
-        border: none;
-        cursor: pointer;
-      }
-
-      .error-message {
-        color: red;
-        margin-top: 5px;
+      .portfolio-item {
+        display: inline-block;
+        width: 24%; /* Set the width to 24% for four items in a row */
+        margin: 1%; /* Add some margin between items */
+        vertical-align: top;
       }
     </style>
   </head>
+
   <body>
-    <div class="contact-form">
-      <h2>Contact Me</h2>
-      <p>
-        Feel free to reach out by filling in the form below. I look forward to
-        hearing from you!
-      </p>
-      <form
-        id="contactForm"
-        action="javascript:void(0);"
-        method="post"
-        enctype="text/plain"
-      >
-        <div class="form-group">
-          <label for="full-name">Full Name:</label>
-          <input type="text" id="full-name" name="full-name" required />
-        </div>
+    <!-- Add filter buttons -->
+    <button
+      class="btn btn-general btn-green filter-b"
+      data-filter="all"
+      onclick="displayImages('all')"
+    >
+      All
+    </button>
+    <button
+      class="btn btn-general btn-green filter-b"
+      data-filter="rdatascience"
+      onclick="displayImages('rdatascience')"
+    >
+      Data Science
+    </button>
+    <button
+      class="btn btn-general btn-green filter-b"
+      data-filter="rdatawrangling"
+      onclick="displayImages('rdatawrangling')"
+    >
+      Data Wrangling
+    </button>
+    <button
+      class="btn btn-general btn-green filter-b"
+      data-filter="rvisualisation"
+      onclick="displayImages('rvisualisation')"
+    >
+      Visualization
+    </button>
+    <button
+      class="btn btn-general btn-green filter-b"
+      data-filter="rstatistics"
+      onclick="displayImages('rstatistics')"
+    >
+      Statistics
+    </button>
+    <button
+      class="btn btn-general btn-green filter-b"
+      data-filter="excelvba"
+      onclick="displayImages('excelvba')"
+    >
+      VBA in Excel
+    </button>
+    <button
+      class="btn btn-general btn-green filter-b"
+      data-filter="others"
+      onclick="displayImages('others')"
+    >
+      Others
+    </button>
 
-        <div class="form-group">
-          <label for="email">Email Address:</label>
-          <input type="email" id="email" name="email" required />
-        </div>
-
-        <div class="form-group">
-          <label for="subject">Subject:</label>
-          <input type="text" id="subject" name="subject" required />
-        </div>
-
-        <div class="form-group">
-          <label for="description">Description (max 200 characters):</label>
-          <textarea
-            id="description"
-            name="description"
-            rows="4"
-            maxlength="200"
-            required
-          ></textarea>
-          <p id="charCount" class="error-message"></p>
-        </div>
-
-        <button type="submit" onclick="validateForm()">Submit</button>
-      </form>
-    </div>
+    <!-- Add a container to hold all portfolio items -->
+    <div id="portfolio-container"></div>
 
     <script>
-      function validateForm() {
-        var description = document.getElementById("description").value;
-        var charCountMessage = document.getElementById("charCount");
+      const imageData = [
+        { id: 1, category: "rdatascience", src: "img/portfolio/p-4.jpg" },
+        { id: 2, category: "rdatascience", src: "img/portfolio/p-5.jpg" },
+        { id: 3, category: "rdatascience", src: "img/portfolio/p-22.jpg" },
+        { id: 22, category: "rdatawrangling", src: "img/portfolio/p-6.jpg" },
+        { id: 23, category: "rdatawrangling", src: "img/portfolio/p-18.jpg" },
+        { id: 4, category: "rvisualisation", src: "img/portfolio/p-9.jpg" },
+        { id: 5, category: "rvisualisation", src: "img/portfolio/p-13.jpg" },
+        { id: 6, category: "rvisualisation", src: "img/portfolio/p-14.jpg" },
+        { id: 7, category: "rvisualisation", src: "img/portfolio/p-15.jpg" },
+        { id: 8, category: "rvisualisation", src: "img/portfolio/p-12.jpg" },
+        { id: 9, category: "rvisualisation", src: "img/portfolio/p-16.jpg" },
+        { id: 10, category: "rvisualisation", src: "img/portfolio/p-21.jpg" },
+        { id: 6, category: "rstatistics", src: "img/portfolio/p-14.jpg" },
+        { id: 12, category: "rstatistics", src: "img/portfolio/p-19.jpg" },
+        { id: 13, category: "rstatistics", src: "img/portfolio/p-18.jpg" },
+        { id: 14, category: "rstatistics", src: "img/portfolio/p-7.jpg" },
+        { id: 8, category: "rstatistics", src: "img/portfolio/p-12.jpg" },
+        { id: 16, category: "excelvba", src: "img/portfolio/p-1.jpg" },
+        { id: 17, category: "excelvba", src: "img/portfolio/p-2.jpg" },
+        { id: 18, category: "excelvba", src: "img/portfolio/p-3.jpg" },
+        { id: 19, category: "excelvba", src: "img/portfolio/p-10.jpg" },
+        { id: 20, category: "others", src: "img/portfolio/p-20.jpg" },
+        { id: 21, category: "others", src: "img/portfolio/p-8.jpg" },
+        // Your image data here...
+      ];
 
-        if (description.length > 200) {
-          charCountMessage.textContent =
-            "Description should not exceed 200 characters.";
-        } else {
-          charCountMessage.textContent = "";
-          document.getElementById("contactForm").submit();
-        }
+      // Function to filter and display images
+      function displayImages(category) {
+        const container = document.getElementById("portfolio-container");
+        container.innerHTML = "";
+
+        const displayedIds = [];
+
+        imageData.forEach((item) => {
+          // Check if the image belongs to the selected category
+          if (category === "all" || item.category === category) {
+            // Check if the image id is not already displayed
+            if (!displayedIds.includes(item.id)) {
+              const div = document.createElement("div");
+              div.className = "portfolio-item filter " + item.category;
+              div.innerHTML = `
+                            <a class="portfolio-link" href="" onclick="window.open(this.href,'new','open'); return false">
+                                <div class="caption-port">
+                                    <div class="caption-port-content">
+                                        <i class="fa fa-search-plus fa-3x"></i>
+                                    </div>
+                                </div>
+                                <img class="img-fluid" src="${item.src}" alt="" />
+                            </a>
+                        `;
+              container.appendChild(div);
+              displayedIds.push(item.id);
+            }
+          }
+        });
       }
+
+      // Initial display - all categories
+      displayImages("all");
     </script>
   </body>
 </html>
