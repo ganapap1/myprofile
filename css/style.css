@@ -185,7 +185,7 @@ a:active {
 
   @media (min-width: 768px) {
       section.resume-section {
-          min-height: 100vh;
+          min-height: 10vh;
       }
       section.resume-section .resume-item .resume-date {
           min-width: 18rem;
@@ -364,7 +364,7 @@ a:active {
     z-index: 1051;
     width: 1px;
     height: 75px;
-    margin-left: 35px;
+    margin-left: 35px;90
     /* IE 9 */
     -webkit-transform: rotate(45deg);
     -ms-transform: rotate(45deg);
